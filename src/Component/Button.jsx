@@ -5,7 +5,7 @@ const Button = ({ children, onClick, className, ...props }) => {
   return (
     <NextUIButton
       onClick={onClick}
-      className={` bg-btn-primary text-white py-4 px-8 rounded-xl text-xl w-1/2 mx-auto  ${className}`}
+      className={` bg-btn-primary text-white py-4 px-8 rounded-xl text-xl   ${className}`}
       {...props}
     >
       {children}

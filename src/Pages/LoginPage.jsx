@@ -2,11 +2,15 @@ import React from "react";
 import Button from "../Component/Button";
 import { Input } from "@nextui-org/react";
 import GlugFooter from "../Component/GlugFooter";
+import NitDgpHeader from "../Component/NitDgpHeader";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
   return (
     <div className=" w-screen h-screen flex flex-col md:flex-row">
-      <div className=" md:w-3/5 w-full h-screen flex flex-col justify-center gap-6 py-5 relative ">
+      <div className=" md:w-3/5 w-full h-screen flex flex-col gap-6 py-5 relative ">
+        <NitDgpHeader />
         <p className=" text-4xl md:text-2xl text-center">
           GymKhana Election Portal
         </p>
@@ -32,7 +36,14 @@ function LoginPage() {
                 required
               />
             </div>{" "}
-            <Button className={" my-3"}>Sign In</Button>
+            <Button
+              className={" my-3"}
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            >
+              Sign In
+            </Button>
           </div>
         </div>
         <GlugFooter />

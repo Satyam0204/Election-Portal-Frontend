@@ -5,18 +5,10 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 import LoginPage from "./Pages/LoginPage";
+import { routes } from "./Routes/routes";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-]);
+const router = createBrowserRouter(routes);
 root.render(
   <NextUIProvider>
     <RouterProvider router={router} />
