@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: process.env.REACT_APP_API_URL,
   timeout: 30000,
 });
 
@@ -21,7 +21,8 @@ export const addAuthToken = async (authToken) => {
   }
 };
 
-export const GET = async (url) => {
+export const GET = async (url, token=null) => {
+  if(token) await addAuthToken(token);
   try {
     const response = await api.get(url);
     return {
@@ -51,8 +52,8 @@ export const GET = async (url) => {
   }
 };
 
-export const POST = async (url, data, extendTimeOut = false) => {
-  // await addAuthToken();
+export const POST = async (url, data, token=null, extendTimeOut = false) => {
+  if(token) await addAuthToken(token);
   if (extendTimeOut) {
     api.defaults.timeout = +60000;
   }

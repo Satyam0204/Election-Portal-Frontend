@@ -1,4 +1,5 @@
 import App from "../App";
+import PrivateRoute from "../Component/PrivateRoute";
 import DashboardPage from "../Pages/DashboardPage";
 import ElectionPollPage from "../Pages/ElectionPollPage";
 import LoginPage from "../Pages/LoginPage";
@@ -14,10 +15,18 @@ export const routes = [
   },
   {
     path: "/dashboard",
-    element: <DashboardPage />,
+    element: (
+      <PrivateRoute>
+        <DashboardPage />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "/dashboard/vote",
-    element: <ElectionPollPage />,
+    path: "/dashboard/vote/:id",
+    element: (
+      <PrivateRoute>
+        <ElectionPollPage />
+      </PrivateRoute>
+    ),
   },
 ];
