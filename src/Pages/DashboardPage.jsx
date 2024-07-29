@@ -50,7 +50,7 @@ function DashboardPage() {
       <div className=" flex justify-end w-full px-5 mb-10">
         <Button
           onClick={() => {
-            navigate(`/dashboard/vote/${elections[0].id}`);
+            navigate(`/dashboard/vote/${elections[0].id}`, { state: { elections } });
           }}
         >
           Continue

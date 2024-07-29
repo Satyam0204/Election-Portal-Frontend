@@ -31,12 +31,31 @@ function LoginPage() {
     }
   }
 
+  const validateUsername = (username) => {  
+    const currentYear = new Date().getFullYear();
+    const lastFourYears = [
+      (currentYear - 1).toString().slice(-2),
+      (currentYear - 2).toString().slice(-2),
+      (currentYear - 3).toString().slice(-2),
+      (currentYear - 4).toString().slice(-2)
+    ];
+    const validStrings = ['BT', 'CE', 'CH', 'CS', 'CY', 'EC', 'EE', 'ES', 'HS', 'MA', 'ME', 'MM', 'MS', 'PH'];
+
+
+    const regexPattern = new RegExp(`^(${lastFourYears.join('|')})([A-Z]{2}|${validStrings.join('|')})(80[0-9][1-9]|81[0-9][0-9]|8200)$`);
+
+    return regexPattern.test(username);
+  };
+
   const loadData= async ()=>{
+    if(!validateUsername(username)){
+      setErrMsg("Invalid RollNo");
+      return;
+    }
     const data ={
       "username": username,
       "password" : pass
     };
-    console.log(data)
     const res = await LoginMember(data);
     if(res.metadata.success===true){
       setAuthToken(res.payload.access);
@@ -45,7 +64,6 @@ function LoginPage() {
     }
     else{
       setErrMsg(JSON.stringify(res.payload.data.message));
-      console.log(res);
     }
     
   }

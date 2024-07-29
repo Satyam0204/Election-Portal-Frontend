@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import NitDgpHeader from "../Component/NitDgpHeader";
-import { useNavigate, useParams } from "react-router-dom";
-import { candidates } from "../helpers";
+import { useNavigate, useParams , useLocation} from "react-router-dom";
+// import { candidates } from "../helpers";
 import Button from "../Component/Button";
 import {
   Modal,
@@ -19,30 +19,25 @@ function ElectionPollPage() {
   let {authToken, userDetails, logout} = useContext(AuthContext);
   let {id} = useParams();
 
-  const [currentIdx, setCurrentIdx] = useState(0);
+  
   const [postition, setPosition] = useState();
   const [candidateArray, setCandidateArray] = useState([]);
   const [selectedCandidate, setselectedCandidate] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const elections = location.state?.elections || [];
+  const currentIndex = elections.findIndex(election => election.id === parseInt(id));
   const { isOpen, onOpen, onOpenChange } = useDisclosure();  
 
   useEffect(() => {
     electionDetails(id);
-    // console.log(candidateArray)
-    
-  },[])
 
-  // useEffect(() => {
-  //   const arrObj = candidates.filter((obj) => obj.position === postition);
-  //   setCandidateArray(arrObj[0].candidates);
-  // }, [postition]);
-  useEffect(() => {
-    setPosition(candidates[currentIdx].position);
-  }, [currentIdx]);
+  },[id])
+
 
   const electionDetails = async (id)=>{
     const res = await getElection(id,authToken);
-    console.log(res);
+
     if(res.metadata.success){
 
       let data = res.payload;
@@ -53,18 +48,22 @@ function ElectionPollPage() {
 
   const vote = async () => {
     const res = await voteCandidate(selectedCandidate.id, authToken);
-    console.log(res);
     if(res.metadata.success){
-      logout();
-      navigate("/login");
+      if (currentIndex < elections.length-1) {
+
+        navigate(`/dashboard/vote/${elections[currentIndex + 1].id}`, { state: { elections } });
+      }
+      else{
+        logout();
+        navigate("/login");
+      }
       
     }
   }
 
   return (
     <div className=" bg-amber-50 h-screen overflow-y-scroll relative">
-      {console.log(currentIdx)}
-      {console.log(postition)}
+     
       <NitDgpHeader />
       <div className=" flex flex-col justify-center items-center gap-5">
         <div className=" text-2xl font-semibold">Hey , {userDetails.username}</div>
@@ -139,13 +138,7 @@ function ElectionPollPage() {
                 <Button onPress={onClose}>Close</Button>
                 <Button
                   onClick={() => {
-                    if (currentIdx + 1 === candidates.length) {
-                      navigate("/login");
-                    } else {
-                      vote();
-                      setCurrentIdx(currentIdx + 1);
-                      onClose();
-                    }
+                    vote();
                   }}
                   color="primary"
                   onPress={onClose}
