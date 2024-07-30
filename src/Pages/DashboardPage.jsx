@@ -7,7 +7,7 @@ import AuthContext from "../Context/AuthContext";
 
 function DashboardPage() {
   const navigate = useNavigate();
-  const [elections, setElections] = useState([])
+  const [elections, setElections] = useState()
   let {authToken, userDetails, logout}=useContext(AuthContext)
   useEffect(()=>{
     getElections()
@@ -34,7 +34,7 @@ function DashboardPage() {
         </div>
       </div>
       <div className=" grid grid-cols-3 gap-10 py-10">
-        {elections.map((ele, index) => {
+        {elections?.map((ele, index) => {
           return (
             <div
               key={index}

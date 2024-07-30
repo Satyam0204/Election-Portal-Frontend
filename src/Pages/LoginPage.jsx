@@ -11,7 +11,8 @@ import Authcontext from "../Context/AuthContext";
 function LoginPage() {
   const navigate = useNavigate();
   let {authToken, setAuthToken, setUserDetails}=useContext(Authcontext);
-  const [voteCnt, setVoteCnt] = useState()
+  const [voteCnt, setVoteCnt] = useState("")
+  const [voteCntObj, setVoteCntObj] = useState()
   const [username,setUserName] = useState();
   const [pass,setPass] = useState();
   const [errorMsg, setErrMsg] = useState(" ");
@@ -25,9 +26,9 @@ function LoginPage() {
 
   const getTotalVotes = async () => {
     const res = await totalVotes();
-  
     if(res.metadata.success){
-      setVoteCnt(res.payload.total_votes);
+      // console(res.payload)
+      setVoteCntObj(res.payload);
     }
   }
 
@@ -115,7 +116,21 @@ function LoginPage() {
       <div className=" md:w-2/5 w-full hidden h-screen md:block bg-primary">
         <div className=" flex items-center justify-center flex-col h-full">
           <p className=" text-3xl">Total Votes Casted</p>
-          <p className=" text-xl">{voteCnt}</p>
+          {/* <p className=" text-xl">{voteCnt}</p> */}
+
+          {voteCntObj?.map((ele, index) => {
+          return (
+            <div
+              key={index}
+              className=" h-20 rounded-xl shadow-lg w-4/5 mx-auto my-1 flex flex-row justify-center items-center gap-3 "
+            >
+              <div className=" text-lg font-bold text-center "> {ele.title}</div>
+              <div className=" text-md text-center"> Batch: {ele.year==0? "All":ele.year}</div>
+              <div className=" text-md text-center"> Dept: {ele.department}</div>
+              <div className=" text-lg text-center"> Votes: <span className=" text-red-700 font-bold">{ele.total_votes}</span></div>
+            </div>
+          );
+        })}
         </div>
       </div>
     </div>
