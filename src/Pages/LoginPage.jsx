@@ -64,7 +64,7 @@ function LoginPage() {
       navigate("/dashboard");
     }
     else{
-      setErrMsg(JSON.stringify(res.payload.data.message));
+      setErrMsg("Wrong Password");
     }
     
   }

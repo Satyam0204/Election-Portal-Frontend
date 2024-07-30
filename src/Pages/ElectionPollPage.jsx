@@ -55,7 +55,7 @@ function ElectionPollPage() {
       }
       else{
         logout();
-        navigate("/login");
+        navigate("/thankyou");
       }
       
     }
