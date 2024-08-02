@@ -14,8 +14,10 @@ import {
 import GlugFooter from "../Component/GlugFooter";
 import AuthContext from "../Context/AuthContext";
 import { getElection, voteCandidate } from "../Services/api";
+import useBlockBackNavigation from "../custom-hooks/useBlockBackNavigation";
 
 function ElectionPollPage() {
+  useBlockBackNavigation();
   let {authToken, userDetails, logout} = useContext(AuthContext);
   let {id} = useParams();
 

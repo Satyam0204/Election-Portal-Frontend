@@ -4,8 +4,10 @@ import Button from "../Component/Button";
 import { useNavigate } from "react-router-dom";
 import { ListEligibleElections } from "../Services/api";
 import AuthContext from "../Context/AuthContext";
+import useBlockBackNavigation from "../custom-hooks/useBlockBackNavigation";
 
 function DashboardPage() {
+  useBlockBackNavigation();
   const navigate = useNavigate();
   const [elections, setElections] = useState([]);
   const [loading, setLoading] = useState(true);
