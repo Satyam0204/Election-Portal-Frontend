@@ -69,7 +69,7 @@ function LoginPage() {
     
   }
   return (
-    <div className=" w-screen h-screen flex flex-col md:flex-row">
+    <div className=" w-screen h-screen flex flex-col md:flex-row" onContextMenu={(e)=> {if(process.env.REACT_APP_PROD === 'true') e.preventDefault()}}>
       <div className=" md:w-3/5 w-full h-screen flex flex-col gap-6 py-5 relative ">
         <NitDgpHeader />
         <p className=" text-4xl md:text-2xl text-center">

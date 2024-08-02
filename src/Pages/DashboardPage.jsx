@@ -28,7 +28,7 @@ function DashboardPage() {
     }
   };
   return (
-    <>
+    <div onContextMenu={(e)=> {if(process.env.REACT_APP_PROD === 'true') e.preventDefault()}}>
       {loading ? (
         <div className="bg-black">LOADING ...</div>
       ) : (
@@ -91,7 +91,7 @@ function DashboardPage() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

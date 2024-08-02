@@ -33,7 +33,6 @@ function ElectionPollPage() {
 
   useEffect(() => {
     electionDetails(id);
-
   },[id])
 
 
@@ -64,7 +63,7 @@ function ElectionPollPage() {
   }
 
   return (
-    <div className=" bg-amber-50 h-screen overflow-y-scroll relative">
+    <div className=" bg-amber-50 h-screen overflow-y-scroll relative" onContextMenu={(e)=> {if(process.env.REACT_APP_PROD === 'true') e.preventDefault()}}>
      
       <NitDgpHeader />
       <div className=" flex flex-col justify-center items-center gap-5">

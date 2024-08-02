@@ -19,7 +19,7 @@ function ThankYou() {
   }, [seconds, navigate]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-slate-300">
+    <div className="flex flex-col justify-center items-center h-screen bg-slate-300" onContextMenu={(e)=> {if(process.env.REACT_APP_PROD === 'true') e.preventDefault()}}>
       <div className="text-4xl m-4  font-extrabold">
         {" "}
         ThankYou for your Time

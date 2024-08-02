@@ -19,7 +19,7 @@ function App() {
     }
   },[])
   return (
-    <div className="App">
+    <div className="App" onContextMenu={(e)=> {if(process.env.REACT_APP_PROD ==='true') e.preventDefault()}}>
      {loading?<>LOADING ...</>:<></>}
     </div>
   );
