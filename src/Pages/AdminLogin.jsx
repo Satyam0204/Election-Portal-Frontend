@@ -8,9 +8,10 @@ import { LoginMember, totalVotes } from "../Services/api";
 import Authcontext from "../Context/AuthContext";
 
 
-function LoginPage() {
+function AdminLogin() {
   const navigate = useNavigate();
-  let {authToken, setAuthToken, userDetails,setUserDetails}=useContext(Authcontext);
+  let {authToken, setAuthToken,userDetails,setUserDetails, logout}=useContext(Authcontext);
+
   const [voteCntObj, setVoteCntObj] = useState()
   const [username,setUserName] = useState();
   const [pass,setPass] = useState();
@@ -18,10 +19,11 @@ function LoginPage() {
 
   useEffect(()=>{
     if(authToken){
-
-      if(userDetails) navigate("/dashboard");
-      else navigate("/admin/login")
-    }
+      if(userDetails){
+        navigate("/dashboard");
+      }  
+      else navigate("/admin/elections")
+    }  
     getTotalVotes();
   },[authToken]);
 
@@ -33,27 +35,10 @@ function LoginPage() {
     }
   }
 
-  const validateUsername = (username) => {  
-    const currentYear = new Date().getFullYear();
-    const lastFourYears = [
-      (currentYear - 1).toString().slice(-2),
-      (currentYear - 2).toString().slice(-2),
-      (currentYear - 3).toString().slice(-2),
-      (currentYear - 4).toString().slice(-2)
-    ];
-    const validStrings = ['BT', 'CE', 'CH', 'CS', 'CY', 'EC', 'EE', 'ES', 'HS', 'MA', 'ME', 'MM', 'MS', 'PH'];
 
-
-    const regexPattern = new RegExp(`^(${lastFourYears.join('|')})([A-Z]{2}|${validStrings.join('|')})(80[0-9][1-9]|81[0-9][0-9]|8200)$`);
-
-    return regexPattern.test(username);
-  };
 
   const loadData= async ()=>{
-    if(!validateUsername(username)){
-      setErrMsg("Invalid RollNo");
-      return;
-    }
+    
     const data ={
       "username": username,
       "password" : pass
@@ -62,10 +47,10 @@ function LoginPage() {
     if(res.metadata.success===true){
       setAuthToken(res.payload.access);
       setUserDetails(res.payload.data);
-      navigate("/dashboard");
+      navigate("/admin/elections");
     }
     else{
-      setErrMsg("Wrong Password");
+      setErrMsg(res.payload);
     }
     
   }
@@ -77,24 +62,20 @@ function LoginPage() {
           GymKhana Election Portal
         </p>
         <div className=" w-3/4 rounded-xl bg-amber-100/20 mx-auto shadow-lg   py-10 px-5">
-          <p className=" text-3xl text-center">Log In To your Account</p>
+          <p className=" text-3xl text-center">Admin Log In</p>
 
           <div className=" w-3/4 mx-auto py-10 flex flex-col gap-0">
             <div className=" my-3">
-              <div>Your Roll Number </div>
+              <div>Admin UserName </div>
               <Input
                 type="text"
-                placeholder=" Enter your Roll Number "
-                description="Eg : 21EE8015"
                 required
               onChange={(e)=>{setUserName(e.target.value)}} />
             </div>
             <div className=" my-3">
-              <div>Your Password </div>
+              <div>Admin Password </div>
               <Input
                 type="password"
-                placeholder=" Enter your password "
-                description="Eg : f45#&ha*"
                 required
                 onChange={(e)=>{setPass(e.target.value)}}
               />
@@ -110,12 +91,13 @@ function LoginPage() {
             >
               Sign In
             </Button>
-            <div className=" hover:underline hover:text-blue-500"><Link to='/admin/login'>Login as Admin</Link></div>
+          <div className=" hover:underline text-blue-500"><Link to='/login'>Login as Student</Link></div>
           </div>
         </div>
         <GlugFooter />
       </div>
-      <div className=" md:w-2/5 w-full hidden h-screen md:block bg-primary">
+      <div className=" md:w-2/5 w-full hidden h-screen md:block bg-primary-300">
+
         <div className=" flex items-center justify-center flex-col h-full">
           <p className=" text-3xl">Total Votes Casted</p>
           {/* <p className=" text-xl">{voteCnt}</p> */}
@@ -134,9 +116,11 @@ function LoginPage() {
           );
         })}
         </div>
+
       </div>
+
     </div>
   );
 }
 
-export default LoginPage;
+export default AdminLogin;
