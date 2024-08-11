@@ -26,17 +26,28 @@ function AdminDashboard() {
     }
   };
   return (
-    <div onContextMenu={(e)=> {if(process.env.REACT_APP_PROD === 'true') e.preventDefault()}}>
+    <div
+      onContextMenu={(e) => {
+        if (process.env.REACT_APP_PROD === "true") e.preventDefault();
+      }}
+    >
       {loading ? (
         <div className="bg-black">LOADING ...</div>
       ) : (
         <div className=" bg-amber-50 h-screen overflow-y-scroll">
           <NitDgpHeader />
-        <div > <Button className=" bg-red-500" onClick={()=>{
-            logout();
-            navigate('/login');
-            }}>Logout</Button>
-            </div>
+          <div className="ml-5 font-bold text-2xl"> ADMIN SIDE</div>
+          <div className="flex justify-end">
+            <Button
+              className=" bg-red-500 mr-2"
+              onClick={() => {
+                logout();
+                navigate("/login");
+              }}
+            >
+              Logout
+            </Button>
+          </div>
           {elections.length === 0 ? (
             <div className=" text-center text-red-700 text-4xl mt-48 font-semibold">
               No Elections to Vote
@@ -62,26 +73,24 @@ function AdminDashboard() {
                         {" "}
                         Dept: {ele.department}
                       </div>
-                      <div className=" w-full flex justify-end">
-                  <Button
-                    onClick={() => {
-                        navigate(`/admin/elections/result/${ele.id}`, {
-                        state: { elections },
-                        });
-                    }}
-                  >
-                    View Result
-                  </Button>
-                </div>
+                      <div className=" w-full flex justify-center mt-4">
+                        <Button
+                          onClick={() => {
+                            navigate(`/admin/elections/result/${ele.id}`, {
+                              state: { elections },
+                            });
+                          }}
+                        >
+                          View Result
+                        </Button>
+                      </div>
                     </div>
                   );
                 })}
               </div>
             </>
           )}
-          <div className=" flex justify-end w-full px-5 mb-10">
-            
-          </div>
+          <div className=" flex justify-end w-full px-5 mb-10"></div>
         </div>
       )}
     </div>

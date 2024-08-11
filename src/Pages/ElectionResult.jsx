@@ -7,7 +7,7 @@ import { getResult } from "../Services/api";
 // import { candidates } from "../helpers";
 
 const ElectionResult = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   let { authToken, logout } = useContext(AuthContext);
   let { id } = useParams();
 
@@ -36,10 +36,11 @@ const ElectionResult = () => {
         }}
       >
         <NitDgpHeader />
-        <div>
+        <div className="ml-5 font-bold text-2xl"> ADMIN SIDE</div>
+        <div className="flex justify-end">
           {" "}
           <Button
-            className=" bg-red-500"
+            className=" bg-red-500 mr-2"
             onClick={() => {
               logout();
               navigate("/login");
