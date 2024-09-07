@@ -60,7 +60,7 @@ const ElectionResult = () => {
                 <div
                   key={index}
                   className={` rounded-xl shadow-xl px-5 py-4 w-4/5 ${
-                    index === 0 ? " bg-green-300" : "bg-primary-300"
+                    index === 0 ? " bg-primary-300" : "bg-primary-300"
                   } mx-auto flex items-center my-3`}
                 >
                   <div>
