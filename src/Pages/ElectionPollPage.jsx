@@ -84,7 +84,7 @@ function ElectionPollPage() {
               >
                 <div>
                   <img
-                    src={process.env.REACT_APP_API_URL+ele.image}
+                    src={process.env.REACT_APP_API_URL+"/candidateImages"+ele.image}
                     className=" h-12 w-16 rounded-full"
                     alt=""
                   />
@@ -121,7 +121,7 @@ function ElectionPollPage() {
                 <div className=" rounded-xl shadow-lg bg-amber-100/30 px-5 py-4 w-full  mx-auto flex items-center my-3">
                   <div>
                     <img
-                      src={process.env.REACT_APP_API_URL+selectedCandidate.image}
+                      src={process.env.REACT_APP_API_URL+"/candidateImages"+selectedCandidate.image}
                       className=" h-12 w-16 rounded-full"
                       alt=""
                     />

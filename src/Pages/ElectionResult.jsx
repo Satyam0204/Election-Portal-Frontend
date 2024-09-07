@@ -65,7 +65,7 @@ const ElectionResult = () => {
                 >
                   <div>
                     <img
-                      src={process.env.REACT_APP_API_URL + ele.image}
+                      src={process.env.REACT_APP_API_URL + "/candidateImages" + ele.image}
                       className=" h-12 w-16 rounded-full"
                       alt=""
                     />
