@@ -44,7 +44,7 @@ function LoginPage() {
     const validStrings = ['BT', 'CE', 'CH', 'CS', 'CY', 'EC', 'EE', 'ES', 'HS', 'MA', 'ME', 'MM', 'MS', 'PH'];
 
 
-    const regexPattern = new RegExp(`^(${lastFourYears.join('|')})([A-Z]{2}|${validStrings.join('|')})(80[0-9][1-9]|81[0-9][0-9]|8200)$`);
+    const regexPattern = new RegExp(`^(${lastFourYears.join('|')})([A-Z]{2}|${validStrings.join('|')})(80[0-9][0-9]|81[0-9][0-9]|8200)$`);
 
     return regexPattern.test(username);
   };
